@@ -24,8 +24,13 @@ namespace Shopf.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddPage()
         {
-            
-            return View();
+            List<PageVM> pageList;
+
+            using (DB db = new DB())
+            {
+                pageList = db.Pages.ToArray().OrderBy(x => x.Sorting).Select(x => new PageVM(x)).ToList();
+            }
+            return View(pageList[0]);
         }
         // Post: Admin/Pages/AddPage
         [HttpPost]

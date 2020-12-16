@@ -32,8 +32,6 @@ namespace Shopf.Models.ViewModels.Pages
         public string Body { get; set; }
         public int Sorting { get; set; }
         public bool HasSidebar { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
         public string Slug { get; set; }
 
     }

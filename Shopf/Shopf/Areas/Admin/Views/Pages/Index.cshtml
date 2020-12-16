@@ -6,6 +6,12 @@
 
 <h2>Pages</h2>
 
+@if (TempData["SM"] != null) { 
+    <div class="alert success">
+        @TempData
+    </div>
+}
+
 <p>
     @Html.ActionLink("Create New Page", "AddPage","",new {@class = "btn btn-success" })
 </p>
