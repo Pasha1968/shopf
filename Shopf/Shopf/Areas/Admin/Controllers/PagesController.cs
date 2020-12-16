@@ -20,5 +20,11 @@ namespace Shopf.Areas.Admin.Controllers
             }
                 return View(pageList);
         }
+        // GET: Admin/Pages/AddPage
+        public ActionResult AddPage()
+        {
+            
+            return View();
+        }
     }
 }

@@ -84,3 +84,7 @@ C:\projects\shopf\shopf\Shopf\Shopf\obj\Debug\Shopf.csproj.CoreCompileInputs.cac
 C:\projects\shopf\shopf\Shopf\Shopf\obj\Debug\Shopf.csproj.CopyComplete
 C:\projects\shopf\shopf\Shopf\Shopf\obj\Debug\Shopf.dll
 C:\projects\shopf\shopf\Shopf\Shopf\obj\Debug\Shopf.pdb
+C:\projects\shopf\shopf\Shopf\Shopf\bin\EntityFramework.dll
+C:\projects\shopf\shopf\Shopf\Shopf\bin\EntityFramework.SqlServer.dll
+C:\projects\shopf\shopf\Shopf\Shopf\bin\EntityFramework.xml
+C:\projects\shopf\shopf\Shopf\Shopf\bin\EntityFramework.SqlServer.xml
