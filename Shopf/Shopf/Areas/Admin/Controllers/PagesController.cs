@@ -112,10 +112,9 @@ namespace Shopf.Areas.Admin.Controllers
                         ModelState.AddModelError("", "That title exist");
                         return View(model);
                     }
-
+                    dto.Body = model.Body;
                     dto.Sorting = model.Sorting;
                     dto.Slug = model.Slug;
-                    dto.Body = model.Body;
                     dto.HasSidebar = model.HasSidebar;
 
                     db.SaveChanges();
