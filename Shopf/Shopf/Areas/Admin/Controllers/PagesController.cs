@@ -140,5 +140,15 @@ namespace Shopf.Areas.Admin.Controllers
                 return View(model);
         }
 
+        public ActionResult DeletePage(int id) {
+            using (DB db = new DB())
+            {
+                PagesDTO dto = db.Pages.Find(id);
+                db.Pages.Remove(dto);
+                db.SaveChanges();
+            }
+            TempData["SM"] = "Page deleted";
+            return RedirectToAction("index");
+        }
     }
 }

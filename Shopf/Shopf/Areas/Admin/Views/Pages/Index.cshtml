@@ -6,14 +6,15 @@
 
 <h2>Pages</h2>
 
-@if (TempData["SM"] != null) { 
+@if (TempData["SM"] != null)
+{
     <div class="alert success">
-        @TempData
+        @TempData["SM"]
     </div>
 }
 
 <p>
-    @Html.ActionLink("Create New Page", "AddPage","",new {@class = "btn btn-success" })
+    @Html.ActionLink("Create New Page", "AddPage", "", new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
@@ -29,23 +30,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HasSidebar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Slug)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditPage", new { id=item.Id }) |
-            @Html.ActionLink("Details", "PageDetails", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeletePage", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasSidebar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditPage", new { id = item.Id }) |
+                @Html.ActionLink("Details", "PageDetails", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeletePage", new { id = item.Id }, new { @class = "delete" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $( "a.delete" ).click(function () {
+                if (!confirm("Confirm Delete")) return false;
+            });
+        });
+    </script>
+}
