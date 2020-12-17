@@ -68,6 +68,8 @@ namespace Shopf.Areas.Admin.Controllers
             TempData["SM"] = "Page has been added";
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        // GET: Admin/Pages/Edit/id
         public ActionResult EditPage(int id) {
             PageVM model;
 
@@ -81,6 +83,26 @@ namespace Shopf.Areas.Admin.Controllers
             }
 
                 return View(model);
+        }
+        // POST: Admin/Pages/Edit/id
+        [HttpPost]
+        // GET: Admin/Pages/Edit/id
+        public ActionResult EditPage(PageVM model)
+        {
+            PageVM model;
+
+            using (DB db = new DB())
+            {
+                PagesDTO dto = db.Pages.Find(id);
+
+                if (dto == null)
+                {
+                    return Content("This page doesn't exist");
+                }
+                model = new PageVM(dto);
+            }
+
+            return View(model);
         }
     }
 }
