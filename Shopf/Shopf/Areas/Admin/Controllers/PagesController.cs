@@ -170,5 +170,19 @@ namespace Shopf.Areas.Admin.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public ActionResult EditSidebar() {
+            SidebarVM model;
+
+            using (DB db = new DB()) {
+                //Говнокод!!!!!!!!!!
+                SidebarDTO dto = db.Sidebars.Find(1);
+                model = new SidebarVM(dto);
+            }
+
+                return View(model);
+        }
+    
     }
 }
