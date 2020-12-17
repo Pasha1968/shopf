@@ -183,6 +183,20 @@ namespace Shopf.Areas.Admin.Controllers
 
                 return View(model);
         }
-    
+        [HttpPost]
+        public ActionResult EditSidebar(SidebarVM model)
+        {
+            using (DB db = new DB())
+            {
+                SidebarDTO dto = db.Sidebars.Find(1);// Говнокодищеееееее!!!!!
+
+                dto.Body = model.Body;
+                db.SaveChanges();
+            }
+            TempData["SM"] = "Edited sidebar";
+
+            return RedirectToAction("EditSidebar");
+        }
+
     }
 }
