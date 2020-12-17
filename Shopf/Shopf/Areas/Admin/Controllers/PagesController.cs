@@ -89,20 +89,56 @@ namespace Shopf.Areas.Admin.Controllers
         // GET: Admin/Pages/Edit/id
         public ActionResult EditPage(PageVM model)
         {
-            PageVM model;
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else {
+                using (DB db = new DB())
+                {
+                    int id = model.Id;
 
+                    PagesDTO dto = db.Pages.Find(id);
+
+                    dto.Title = model.Title;
+
+                    if (model.Slug != "home") {
+                        if (string.IsNullOrWhiteSpace(model.Slug)) {
+                            model.Slug = model.Title.Replace(" ", "-").ToLower();
+                        }
+                    }
+                    if (db.Pages.Where(x => x.Id != id).Any(x => x.Title == model.Title))
+                    {
+                        ModelState.AddModelError("", "That title exist");
+                        return View(model);
+                    }
+
+                    dto.Sorting = model.Sorting;
+                    dto.Slug = model.Slug;
+                    dto.Body = model.Body;
+                    dto.HasSidebar = model.HasSidebar;
+
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("EditPage");
+            }
+        }
+
+        public ActionResult PageDetails(int id) {
+            PageVM model;
             using (DB db = new DB())
             {
                 PagesDTO dto = db.Pages.Find(id);
+                if (dto == null) {
+                    return Content("The page doesn't exist");
 
-                if (dto == null)
-                {
-                    return Content("This page doesn't exist");
                 }
                 model = new PageVM(dto);
-            }
 
-            return View(model);
+            }
+                return View(model);
         }
+
     }
 }
