@@ -24,13 +24,8 @@ namespace Shopf.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddPage()
         {
-            List<PageVM> pageList;
-
-            using (DB db = new DB())
-            {
-                pageList = db.Pages.ToArray().OrderBy(x => x.Sorting).Select(x => new PageVM(x)).ToList();
-            }
-            return View(pageList[0]);
+            var page = new PageVM();
+            return View(page);
         }
         // Post: Admin/Pages/AddPage
         [HttpPost]
@@ -72,6 +67,20 @@ namespace Shopf.Areas.Admin.Controllers
             }
             TempData["SM"] = "Page has been added";
             return RedirectToAction("Index");
+        }
+        public ActionResult EditPage(int id) {
+            PageVM model;
+
+            using (DB db = new DB()) {
+                PagesDTO dto = db.Pages.Find(id);
+
+                if (dto == null) {
+                    return Content("This page doesn't exist");
+                }
+                model = new PageVM(dto);
+            }
+
+                return View(model);
         }
     }
 }
