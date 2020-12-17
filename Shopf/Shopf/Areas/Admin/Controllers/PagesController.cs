@@ -150,5 +150,25 @@ namespace Shopf.Areas.Admin.Controllers
             TempData["SM"] = "Page deleted";
             return RedirectToAction("index");
         }
+
+
+        [HttpPost]
+        public void ReorderPages(int [] id)
+        {
+            if (id == null){
+                id = new int[0];
+            }
+            using (DB db = new DB())
+            {
+                int count = 1;
+                PagesDTO dto;
+                foreach (var PageId in id) {
+                    dto = db.Pages.Find(PageId);
+                    dto.Sorting = count;
+                    db.SaveChanges();
+                    count++;
+                }
+            }
+        }
     }
 }
