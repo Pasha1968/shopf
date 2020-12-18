@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Shopf.Areas.Admin.Controllers
@@ -144,12 +145,31 @@ namespace Shopf.Areas.Admin.Controllers
                     ext != "image/gif" &&
                     ext != "image/x-png" &&
                     ext != "image/png") {
-                    using (DB db = new Db())
+                    using (DB db = new DB()) {
+                        model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+                        ModelState.AddModelError("", "No image");
+                        return View(model);
+                    }
                 }
+            
+            string ImageName = file.FileName;
+            using (DB db = new DB())
+            {
+                ProductDTO dto = db.Products.Find(id);
+                dto.ImageName = ImageName;
+                db.SaveChanges();
             }
+                var path = string.Format($"{pathString2}\\{ImageName}");
+                var path2 = string.Format($"{pathString3}\\{ImageName}");
 
+                file.SaveAs(path);
+                WebImage img = new WebImage(file.InputStream);
+                img.Resize(200, 200);
+                img.Save(path2);
 
+            }
             #endregion
+            return RedirectToAction("AddProduct");
         }
 
     }

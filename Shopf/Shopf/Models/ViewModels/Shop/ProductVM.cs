@@ -33,7 +33,6 @@ namespace Shopf.Models.ViewModels.Shop
         [Required]
         public string Description { get; set; }
         public decimal Price { get; set; }
-        [Required]
         public string CategoryName { get; set; }
         [Required]
         [DisplayName("Category")]
