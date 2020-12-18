@@ -2,6 +2,7 @@
 using Shopf.Models.ViewModels.Shop;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -109,10 +110,46 @@ namespace Shopf.Areas.Admin.Controllers
                 product.Description = model.Description;
                 product.Price = model.Price;
                 CategoryDTO catDTO = db.Categories.FirstOrDefault(x=> x.Id ==model.CategoryId);
+                product.CategoryName = catDTO.Name;
+                db.Products.Add(product);
+                db.SaveChanges();
+                id = product.Id;
             }
-                #region Upload Image
+            TempData["SM"] = "Product added";
+            #region Upload Image
+            var originalDirectory = new DirectoryInfo(string.Format($"{Server.MapPath(@"\")}Images\\Uploads"));
 
-                #endregion
+            var pathString1 = Path.Combine(originalDirectory.ToString(), "Products");
+            var pathString2 = Path.Combine(originalDirectory.ToString(), "Products\\"+ id.ToString());
+            var pathString3 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\Thumbs");
+            var pathString4 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\Gallery");
+            var pathString5 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\Gallery\\Thumbs");
+
+            if (!Directory.Exists(pathString1))
+                Directory.CreateDirectory(pathString1);
+            if (!Directory.Exists(pathString2))
+                Directory.CreateDirectory(pathString2);
+            if (!Directory.Exists(pathString3))
+                Directory.CreateDirectory(pathString3);
+            if (!Directory.Exists(pathString4))
+                Directory.CreateDirectory(pathString4);
+            if (!Directory.Exists(pathString5))
+                Directory.CreateDirectory(pathString5);
+
+            if (file != null && file.ContentLength > 0) {
+                string ext = file.ContentType.ToLower();
+                if (ext != "image/jpg" &&
+                    ext != "image/jpeg" &&
+                    ext != "image/pjpeg" &&
+                    ext != "image/gif" &&
+                    ext != "image/x-png" &&
+                    ext != "image/png") {
+                    using (DB db = new Db())
+                }
+            }
+
+
+            #endregion
         }
 
     }
