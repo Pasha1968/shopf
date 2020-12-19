@@ -73,7 +73,7 @@
     </td>
     <td width="15%">
         @Html.ActionLink("Edit", "EditProduct", new { id = product.Id }, new {@class="btn btn-info" })
-        @Html.ActionLink("Delete", "DeleteProduct", new { id = product.Id },new { @class = "btn btn-danger" })
+        @Html.ActionLink("Delete", "DeleteProduct", new { id = product.Id },new { @class = "btn btn-danger delete" })
     </td>
 </tr>    
 }
@@ -83,5 +83,5 @@
 
 
 @section Scripts{
-    <script src="~/Content/ShopJS/Products.js"></script>   
+    <script src="~/Content/ShopJS/Products.js"></script>
 }
