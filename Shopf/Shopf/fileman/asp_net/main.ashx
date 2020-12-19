@@ -19,6 +19,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   Contact: Lyubomir Arsov, liubo (at) web-lobby.com
+.net добавить менеджера
+Почтовый клиент
+Удобный интерфейс
+Больше Динамики
+css по минимуму
+Главная страница 
 */
 
 using System;

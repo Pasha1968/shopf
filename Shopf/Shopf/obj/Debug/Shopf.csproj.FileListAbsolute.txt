@@ -253,3 +253,7 @@ C:\projects\shopf\shopf\Shopf\Shopf\bin\System.Numerics.Vectors.xml
 C:\projects\shopf\shopf\Shopf\Shopf\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\projects\shopf\shopf\Shopf\Shopf\bin\System.Text.Encodings.Web.xml
 C:\projects\shopf\shopf\Shopf\Shopf\bin\System.Threading.Tasks.Extensions.xml
+C:\projects\shopf\shopf\Shopf\Shopf\bin\PagedList.dll
+C:\projects\shopf\shopf\Shopf\Shopf\bin\PagedList.Mvc.dll
+C:\projects\shopf\shopf\Shopf\Shopf\bin\PagedList.xml
+C:\projects\shopf\shopf\Shopf\Shopf\bin\PagedList.Mvc.xml

@@ -18,7 +18,7 @@ namespace Shopf.Models.ViewModels.Pages
             Id = row.Id;
             Title = row.Title;
             Slug = row.Slug;
-            Body = row.Body;
+            Body = row.Body;    
             Sorting = row.Sorting;
             HasSidebar = row.HasSidebar;
 

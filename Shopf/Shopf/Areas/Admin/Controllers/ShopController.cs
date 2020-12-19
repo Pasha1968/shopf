@@ -1,4 +1,5 @@
-﻿using Shopf.Models.Data;
+﻿using PagedList;
+using Shopf.Models.Data;
 using Shopf.Models.ViewModels.Shop;
 using System;
 using System.Collections.Generic;
@@ -81,15 +82,16 @@ namespace Shopf.Areas.Admin.Controllers
         public ActionResult AddProduct() {
             ProductVM model = new ProductVM();
             using (DB db = new DB()) {
-                model.Categories = new SelectList(db.Categories.ToList(), "id", "Name");
+                model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
             }
             return View(model);
         }
         [HttpPost]
         public ActionResult AddProduct(ProductVM model,HttpPostedFileBase file) {
-            if (!ModelState.IsValid) {
+                if (!ModelState.IsValid) {
                 using (DB db = new DB()) {
-                    model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+                    model.Categories = new SelectList (db.Categories.ToList(), "Id", "Name");
+                  //  model.Categories = new SelectList(db.Categories, "Id", "Name"); // add this
                     return View(model);
                 }
             }
@@ -110,6 +112,7 @@ namespace Shopf.Areas.Admin.Controllers
                 product.Slug = model.Name.Replace(" ", "-").ToLower();
                 product.Description = model.Description;
                 product.Price = model.Price;
+                product.CategoryId = model.CategoryId;
                 CategoryDTO catDTO = db.Categories.FirstOrDefault(x=> x.Id ==model.CategoryId);
                 product.CategoryName = catDTO.Name;
                 db.Products.Add(product);
@@ -136,7 +139,10 @@ namespace Shopf.Areas.Admin.Controllers
                 Directory.CreateDirectory(pathString4);
             if (!Directory.Exists(pathString5))
                 Directory.CreateDirectory(pathString5);
-
+            if (file == null) {
+                TempData["SM"] = "nuill";
+                return View(model);
+            }
             if (file != null && file.ContentLength > 0) {
                 string ext = file.ContentType.ToLower();
                 if (ext != "image/jpg" &&
@@ -151,7 +157,7 @@ namespace Shopf.Areas.Admin.Controllers
                         return View(model);
                     }
                 }
-            
+            }
             string ImageName = file.FileName;
             using (DB db = new DB())
             {
@@ -167,10 +173,38 @@ namespace Shopf.Areas.Admin.Controllers
                 img.Resize(200, 200);
                 img.Save(path2);
 
-            }
             #endregion
             return RedirectToAction("AddProduct");
         }
 
+
+        [HttpGet]
+        public ActionResult Products(int? page, int? catId) {
+            List<ProductVM> ListOfProductVM;
+
+            var pageNumber = page ?? 1;
+
+            using (DB db = new DB()) {
+                ListOfProductVM = db.Products.ToArray()
+                    .Where(x => catId == null || catId == 0 || x.CategoryId == catId)
+                    .Select(x => new ProductVM(x))
+                    .ToList();
+
+                ViewBag.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+
+                ViewBag.SelectedCat = catId.ToString();
+            }
+            //ViewBag- не кидать слишком много данных(Лучше моделькой тогда)
+            var onePageOfProducts = ListOfProductVM.ToPagedList(pageNumber, 8);
+            ViewBag.onePageOfProducts = onePageOfProducts;
+            
+            return View(ListOfProductVM);
+        }
+
+        [HttpGet]
+        public ActionResult EditProduct() {
+            
+        }
     }
+
 }
