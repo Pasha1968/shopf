@@ -14,10 +14,23 @@ namespace Shopf
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+               name: "Page",
+               url: "{page}",
+               defaults: new { controller = "Page", action = "Index", id = UrlParameter.Optional },
+               new[] { "Shopf.Controllers" }
+           );
+            routes.MapRoute(
+               name: "Default",
+               url: "",
+               defaults: new { controller = "Page", action = "Index", id = UrlParameter.Optional },
+               new[] { "Shopf.Controllers" }
+           );
+
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
         }
     }
 }

@@ -1087,6 +1087,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Page\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
@@ -1095,7 +1096,6 @@
     <Folder Include="fileman\tmp\" />
     <Folder Include="fileman\Uploads\Documents\" />
     <Folder Include="fileman\Uploads\FLV\" />
-    <Folder Include="Views\Page\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
