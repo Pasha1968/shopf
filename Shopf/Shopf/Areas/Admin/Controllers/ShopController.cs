@@ -225,7 +225,7 @@ namespace Shopf.Areas.Admin.Controllers
             using (DB db = new DB()) {
                 model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
             }
-            model.GalleryImages = Directory.EnumerateFiles(Server.MapPath("~/Images/Uploads/Products/" + id + "/Thumbs"))
+            model.GalleryImages = Directory.EnumerateFiles(Server.MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thumbs"))
                                    .Select(fn => Path.GetFileName(fn));
             if (!ModelState.IsValid) {
                 return View(model);
@@ -348,8 +348,8 @@ namespace Shopf.Areas.Admin.Controllers
             }
         }
         public void DeleteImage(int id,string imageName) {
-            string fullPath1 = Request.MapPath("~/Images/Uploads/Products/" + id.ToString() + "/Gallery" + imageName);
-            string fullPath2 = Request.MapPath("~/Images/Uploads/Products/" + id.ToString() + "/Gallery/Thumbs" + imageName);
+            string fullPath1 = Request.MapPath("~/Images/Uploads/Products\\" + id.ToString() + "/Gallery/" + imageName);
+            string fullPath2 = Request.MapPath("~/Images/Uploads/Products/" + id.ToString() + "/Gallery/Thumbs/" + imageName);
             if (System.IO.File.Exists(fullPath1)) {
                 System.IO.File.Delete(fullPath1);
             }
