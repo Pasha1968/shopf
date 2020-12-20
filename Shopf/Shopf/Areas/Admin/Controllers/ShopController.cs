@@ -170,7 +170,7 @@ namespace Shopf.Areas.Admin.Controllers
 
                 file.SaveAs(path);
                 WebImage img = new WebImage(file.InputStream);
-                img.Resize(200, 200).Crop(1,1);
+                img.Resize(200, 200);
                 img.Save(path2);
             // Возможно потерял "}" 15/17:05
             #endregion
@@ -301,7 +301,7 @@ namespace Shopf.Areas.Admin.Controllers
 
                 file.SaveAs(path);
                 WebImage img = new WebImage(file.InputStream);
-                img.Resize(200, 200).Crop(1,1);
+                img.Resize(200, 200);
                 img.Save(path2);
 
 
@@ -342,7 +342,7 @@ namespace Shopf.Areas.Admin.Controllers
                     file.SaveAs(path);
 
                     WebImage img = new WebImage(file.InputStream);
-                    img.Resize(200, 200).Crop(1,1);
+                    img.Resize(200, 200);
                     img.Save(path2);
                 }
             }
