@@ -14,6 +14,13 @@ namespace Shopf
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "SidebarPartial",
+               url: "Page/SidebarPartial",
+               defaults: new { controller = "Page", action = "SidebarPartial", id = UrlParameter.Optional },
+               new[] { "Shopf.Controllers" }
+           );
+            /////////
+            routes.MapRoute(
                name: "Page",
                url: "{page}",
                defaults: new { controller = "Page", action = "Index", id = UrlParameter.Optional },
@@ -25,6 +32,12 @@ namespace Shopf
                defaults: new { controller = "Page", action = "Index", id = UrlParameter.Optional },
                new[] { "Shopf.Controllers" }
            );
+            routes.MapRoute(
+              name: "PagesMenuPartial",
+              url: "Page/PagesMenuPartial",
+              defaults: new { controller = "Page", action = "PagesMenuPartial", id = UrlParameter.Optional },
+              new[] { "Shopf.Controllers" }
+          );
 
             //routes.MapRoute(
             //    name: "Default",

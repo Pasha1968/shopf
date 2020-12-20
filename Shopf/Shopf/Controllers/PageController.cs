@@ -41,5 +41,20 @@ namespace Shopf.Controllers
 
             return View(model);
         }
+        public ActionResult PagesMenuPartial() {
+            List<PageVM> pageVMList;
+            using (DB db = new DB()) {
+                pageVMList = db.Pages.ToArray().OrderBy(x => x.Sorting).Where(x => x.Slug != "home").Select(x => new PageVM(x)).ToList();
+            }
+            return PartialView("_PagesMenuPartial", pageVMList);
+        }
+        public ActionResult SidebarPartial() {
+            SidebarVM model;
+            using (DB db = new DB()) {
+                SidebarDTO dto = db.Sidebars.Find(1);// Говнокод
+                model = new SidebarVM(dto);
+            }
+            return PartialView("_SidebarPartial", model);
+        }
     }
 }
