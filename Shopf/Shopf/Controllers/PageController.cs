@@ -54,7 +54,7 @@ namespace Shopf.Controllers
                 SidebarDTO dto = db.Sidebars.Find(1);// Говнокод
                 model = new SidebarVM(dto);
             }
-            return PartialView("_SidebarPartial", model);
+            return PartialView("SidebarPartial", model);
         }
     }
 }

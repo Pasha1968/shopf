@@ -254,6 +254,7 @@
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
     <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1090,6 +1091,8 @@
     <Content Include="Views\Page\Index.cshtml" />
     <Content Include="Views\Page\_PagesMenuPartial.cshtml" />
     <Content Include="Views\Page\_SidebarPartial.cshtml" />
+    <Content Include="Views\Page\SidebarPartial.cshtml" />
+    <Content Include="Views\Shop\_CategoryMenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />

@@ -20,6 +20,13 @@ namespace Shopf
                new[] { "Shopf.Controllers" }
            );
             /////////
+            ///
+            routes.MapRoute(
+               name: "Shop",
+               url: "Shop/{action}/{name}",
+               defaults: new { controller = "Shop", action = "Index",name = UrlParameter.Optional, id = UrlParameter.Optional },
+               new[] { "Shopf.Controllers" }
+           );
             routes.MapRoute(
                name: "Page",
                url: "{page}",

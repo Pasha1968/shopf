@@ -28,15 +28,20 @@
         </div>
     </div>
     <div class="container body-content">
-        <div class="row">
+        <div class="row" style="display:inline-block;width:100%;">
+            <div class="col-md-3 list-group">
+                @Html.Action("CategoryMenuPartial","Shop")
+            </div>
             @if (ViewBag.Sidebar == "Yes")
             {
-                <div class="col">
+            <div style="margin:5%;display:flex;width:100%;justify-content: space-between;">
+                <div>
                     @RenderBody()
                 </div>
-                <div class="col-sm-12 col-md-3">
-                    @Html.Action("SidebarPartial","Page")
+                <div style="margin-left:5%;">
+                    @Html.Action("SidebarPartial", "Page")
                 </div>
+            </div>
             }
             else
             {
