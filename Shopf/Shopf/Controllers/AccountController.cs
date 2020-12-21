@@ -34,7 +34,7 @@ namespace Shopf.Controllers
                 return View("CreateAccount", model);
             }
             using (DB db = new DB()) {
-                if(db.Users.Any(x=> x.Equals(model.UserName)))
+                if(db.Users.Any(x=> x.UserName.Equals(model.UserName)))
                 {
                     ModelState.AddModelError("", $"Username {model.UserName} is taken");
                     model.UserName = "";
