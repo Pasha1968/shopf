@@ -105,6 +105,32 @@ namespace Shopf.Controllers
             }
             //return View();
         }
+        public ActionResult DecrementProduct(int productId)
+        {
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+            using (DB db = new DB())
+            {
+                CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+                if (model.Quantity > 1)
+                    model.Quantity--;
+                else {
+                    model.Quantity = 0;
+                    cart.Remove(model);
+                }
+                var result = new { qty = model.Quantity, price = model.Price };
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            //return View();
+        }
+        public void RemoveProduct(int productId) {
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+            using (DB db = new DB())
+            {
+                CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+                cart.Remove(model);
+            }
+        }
 
     }
 }
