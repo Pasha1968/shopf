@@ -304,6 +304,7 @@
     <Content Include="Content\jquery.fancybox.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\ShopJS\AddProduct.js" />
+    <Content Include="Content\ShopJS\IncrementProductScript.js" />
     <Content Include="Content\ShopJS\ProductDetailsScript.js" />
     <Content Include="Content\ShopJS\Products.js" />
     <Content Include="favicon.ico" />
@@ -1114,6 +1115,9 @@
     <Content Include="Views\Shop\_CategoryMenuPartial.cshtml" />
     <Content Include="Views\Shop\Category.cshtml" />
     <Content Include="Views\Shop\ProductDetails.cshtml" />
+    <Content Include="Views\Cart\_CartPartial.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\_AddToCartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
@@ -1122,7 +1126,6 @@
     <Folder Include="fileman\tmp\" />
     <Folder Include="fileman\Uploads\Documents\" />
     <Folder Include="fileman\Uploads\FLV\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

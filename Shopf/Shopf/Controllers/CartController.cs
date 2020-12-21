@@ -1,4 +1,5 @@
-﻿using Shopf.Models.ViewModels.Cart;
+﻿using Shopf.Models.Data;
+using Shopf.Models.ViewModels.Cart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,20 @@ namespace Shopf.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            return View();
+            var cart = Session["cart"] as List<CartVM> ?? new List<CartVM>();
+
+            if(cart.Count == 0 || Session["cart"] == null)
+            {
+                ViewBag.Massage = "You're cart is Empty";
+                return View();
+            }
+            decimal total = 0m;
+            foreach(var item in cart)
+            {
+                total += item.Total;
+            }
+            ViewBag.GrandTotal = total;
+            return View(cart);
         }
         public ActionResult CartPartial()
         {
@@ -22,9 +36,75 @@ namespace Shopf.Controllers
 
             decimal price = 0m;
 
-            if(Session["cart"]!= null)
+            if (Session["cart"] != null)
+            {
+                var list = (List<CartVM>)Session["cart"]; // Компилятор думает, что тут обьект, а мы говорим ЛИст:)
+                foreach (var item in list)
+                {
+                    qty += item.Quantity;
+                    price += item.Quantity * item.Price;
+                }
+                model.Quantity = qty;
+                model.Price = price;
+            }
+            else {
+                model.Quantity = 0;
+                model.Price = 0m;
+            }
 
-            return PartialView();
+            return PartialView("_CartPartial",model);
         }
+    
+        public ActionResult AddToCartPartial(int id)
+        {
+            List<CartVM> cart = Session["cart"] as List<CartVM> ?? new List<CartVM>();
+
+            CartVM model = new CartVM();
+
+            using (DB db = new DB())
+            {
+                ProductDTO product = db.Products.Find(id);
+                var productInCart = cart.FirstOrDefault(x => x.ProductId == id);
+                if (productInCart == null)
+                {
+                    cart.Add(new CartVM()
+                    {
+                        ProductId = product.Id,
+                        ProductName = product.Name,
+                        Quantity = 1,
+                        Price = product.Price,
+                        Image = product.ImageName
+                    });
+                }
+                else {
+                    productInCart.Quantity++;
+                }
+            }
+            int qty = 0;
+            decimal price = 0m;
+            foreach(var item in cart)
+            {
+                qty += item.Quantity;
+                price += item.Quantity * item.Price;
+            }
+            model.Quantity = qty;
+            model.Price = price;
+            Session["cart"] = cart;
+            return PartialView("_AddToCartPartial", model);
+        }
+        
+        public JsonResult IncrementProduct(int productId)
+        {
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+            using (DB db = new DB()) {
+                CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+                model.Quantity++;
+                var result = new { qty = model.Quantity, price = model.Price };
+
+                return Json(result,JsonRequestBehavior.AllowGet);
+            }
+            //return View();
+        }
+
     }
 }

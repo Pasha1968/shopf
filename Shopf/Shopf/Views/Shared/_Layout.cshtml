@@ -21,13 +21,16 @@
                 <a class="navbar-brand" href="/">Shoppp</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav mr-auto" style="float:left">
                     @Html.Action("PagesMenuPartial", "Page")
                 </ul>
+                <span class="navbar-text" style="float:right">
+                    @Html.Action("CartPartial","Cart")
+                </span>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top:5%">
         <div class="row" style="display:inline-block;width:100%;">
             <div class="col-md-3 list-group">
                 @Html.Action("CategoryMenuPartial","Shop")

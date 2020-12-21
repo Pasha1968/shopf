@@ -19,7 +19,13 @@ namespace Shopf
                defaults: new { controller = "Page", action = "SidebarPartial", id = UrlParameter.Optional },
                new[] { "Shopf.Controllers" }
            );
-            /////////
+        /////////
+            routes.MapRoute(
+               name: "Cart",
+               url: "Cart/{action}/{id}",
+               defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
+               new[] { "Shopf.Controllers" }
+           );
             ///
             routes.MapRoute(
                name: "Shop",
