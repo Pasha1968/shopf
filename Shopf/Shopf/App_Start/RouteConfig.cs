@@ -14,6 +14,13 @@ namespace Shopf
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "Account",
+               url: "Account/{action}/{id}",
+               defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional },
+               new[] { "Shopf.Controllers" }
+           );
+            /////////
+            routes.MapRoute(
                name: "SidebarPartial",
                url: "Page/SidebarPartial",
                defaults: new { controller = "Page", action = "SidebarPartial", id = UrlParameter.Optional },
