@@ -23,6 +23,25 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav mr-auto" style="float:left">
                     @Html.Action("PagesMenuPartial", "Page")
+
+                    @if (Request.IsAuthenticated) {
+                        <li>@Html.ActionLink("Logout","Logout","Account",null,new {@class="navbar-text",style="text-decoration:none" })
+                        </li>
+                    }
+                    else
+                    {
+                        if(ViewBag.Title == "Login")
+                        {
+                            <li class="navbar-text">@Html.ActionLink("Login","Login","Account",null,new {@class="active", style = "text-decoration:none" })</li>
+                        }
+                        else
+                        {
+                            <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "navbar-text", style = "text-decoration:none" })</li>
+                        }
+                    }
+                    @if (Request.IsAuthenticated) {
+                        <li>@Html.Action("UserNavPartial","Account",new {area="" })</li>
+                     }
                 </ul>
                 <span class="navbar-text" style="float:right">
                     @Html.Action("CartPartial","Cart")

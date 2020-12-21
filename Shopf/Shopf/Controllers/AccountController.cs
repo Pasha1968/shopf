@@ -101,5 +101,70 @@ namespace Shopf.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+        public ActionResult UserNavPartial()
+        {
+            string userName = User.Identity.Name;
+            UserNavPartialVM model;
+            using (DB db = new DB()) {
+                UserDTO dto = db.Users.FirstOrDefault(x => x.UserName == userName);
+                model = new UserNavPartialVM()
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName
+                };
+            }
+            return PartialView(model);
+        }
+        [HttpGet]
+        [ActionName("user-profile")]
+        public ActionResult UserProfile()
+        {
+            string userName = User.Identity.Name;
+            UserProfileVM model;
+            using (DB db = new DB())
+            {
+                UserDTO dto = db.Users.FirstOrDefault(x => x.UserName == userName);
+                model = new UserProfileVM(dto);
+            }
+            return View("UserProfile",model);
+        }
+        [HttpPost]
+        [ActionName("user-profile")]
+        public ActionResult UserProfile(UserProfileVM model)
+        {
+            if (!ModelState.IsValid) {
+                return View("UserProfile",model);
+            }
+            if (!string.IsNullOrWhiteSpace(model.Password))
+            {
+                if (!model.Password.Equals(model.Confirm))
+                {
+                    ModelState.AddModelError("", "Password don't match");
+                    return View("UserProfile", model);
+                }
+            }
+            using (DB db = new DB())
+            {
+                string userName = User.Identity.Name;
+                if(db.Users.Where(x=>x.Id !=model.Id).Any(x=>x.UserName == userName))
+                {
+                    ModelState.AddModelError("", $"username {model.UserName} alredy exists ");
+                    model.UserName = "";
+                    return View("UserProfile", model);
+                }
+                UserDTO dto = db.Users.Find(model.Id);
+                dto.FirstName = model.FirstName;
+                dto.LastName = model.LastName;
+                dto.EmailAdress = model.EmailAdress;
+                dto.UserName = model.UserName;
+                if (!string.IsNullOrWhiteSpace(model.Password))
+                {
+                    dto.Password = model.Password;
+                }
+                db.SaveChanges();
+            }
+            TempData["SM"] = "Profile Edited";
+                return View("UserProfile",model);
+        }
     }
 }
