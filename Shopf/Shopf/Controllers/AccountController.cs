@@ -132,6 +132,7 @@ namespace Shopf.Controllers
         [ActionName("user-profile")]
         public ActionResult UserProfile(UserProfileVM model)
         {
+            bool userNameIsChanged = false;
             if (!ModelState.IsValid) {
                 return View("UserProfile",model);
             }
@@ -146,6 +147,11 @@ namespace Shopf.Controllers
             using (DB db = new DB())
             {
                 string userName = User.Identity.Name;
+                if (userName != model.UserName)
+                {
+                    userName = model.UserName;
+                    userNameIsChanged = true;
+                }
                 if(db.Users.Where(x=>x.Id !=model.Id).Any(x=>x.UserName == userName))
                 {
                     ModelState.AddModelError("", $"username {model.UserName} alredy exists ");
@@ -164,7 +170,14 @@ namespace Shopf.Controllers
                 db.SaveChanges();
             }
             TempData["SM"] = "Profile Edited";
-                return View("UserProfile",model);
+            if (!userNameIsChanged)
+            {
+                return View("UserProfile", model);
+            }
+            else {
+                return RedirectToAction("Logout");
+            }
+            
         }
     }
 }
