@@ -73,3 +73,12 @@ textarea {
     height: 100%;
     text-indent: -9999px; /* hides the link text */
 }
+div.ajaxmsg {
+    background:green;
+    color:white;
+    padding:10px;
+    display:none;
+}
+span.loader {
+    display:none;
+}
