@@ -20,7 +20,7 @@ namespace Shopf
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
         //25 auth
-        protected void Application_AuthentificateRequest()
+        protected void Application_AuthenticateRequest()
         {
             if (User == null)
             {

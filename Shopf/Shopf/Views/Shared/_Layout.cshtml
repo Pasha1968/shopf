@@ -28,19 +28,19 @@
                     {
                         <li>
                             @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "navbar-text", style = "text-decoration:none" })
-                    </li>
-                }
-                else
-                {
-                    if (ViewBag.Title == "Login")
-                    {
-                        <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "active", style = "text-decoration:none" })</li>
+                        </li>
                     }
                     else
                     {
-                        <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "navbar-text", style = "text-decoration:none" })</li>
+                        if (ViewBag.Title == "Login")
+                        {
+                            <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "active", style = "text-decoration:none" })</li>
+                        }
+                        else
+                        {
+                            <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "navbar-text", style = "text-decoration:none" })</li>
+                        }
                     }
-                }
                     @if (Request.IsAuthenticated && User.IsInRole("User"))
                     {
                         if (ViewBag.Title == "User Profile")
@@ -61,10 +61,16 @@
                         @Html.ActionLink("God(adm) Area", "Index", "Dashboard", new { area = "Admin" }, null)
                     </span>
                 }
-                else { }
-                <span class="navbar-text" style="float:right">
-                    @Html.Action("CartPartial", "Cart")
-                </span>
+                else
+                {
+                    if (ViewBag.Title != "Cart Details")
+                    {
+                        <span class="navbar-text" style="float:right">
+                            @Html.Action("CartPartial", "Cart")
+                        </span>
+                    }
+                }
+
             </div>
         </div>
     </div>
