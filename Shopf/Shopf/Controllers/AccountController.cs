@@ -59,7 +59,7 @@ namespace Shopf.Controllers
                 db.UserRoles.Add(userroleDTO);
                 db.SaveChanges();
             }
-            TempData["SM"] = "Account registered"
+            TempData["SM"] = "Account registered";
             //UserVM data = new UserVM();
             return RedirectToAction("Login");
         }
