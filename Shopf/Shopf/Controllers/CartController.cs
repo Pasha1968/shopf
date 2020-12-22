@@ -165,7 +165,7 @@ namespace Shopf.Controllers
                 OrderDetailsDTO orderDetailsDto = new OrderDetailsDTO();
                 foreach (var item in cart)
                 {
-                    if (item == null || cart ==null) {
+                    if (cart ==null) {
                         break;
                     }
                     orderDetailsDto.OrderId = orderId;
@@ -174,7 +174,7 @@ namespace Shopf.Controllers
                     orderDetailsDto.Quantity = item.Quantity;
                     db.OrderDetails.Add(orderDetailsDto);
                     db.SaveChanges();
-                    if (item == null || cart == null)
+                    if (cart == null)
                     {
                         break;
                     }

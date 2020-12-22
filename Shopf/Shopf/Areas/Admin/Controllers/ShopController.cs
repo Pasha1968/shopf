@@ -358,6 +358,40 @@ namespace Shopf.Areas.Admin.Controllers
                 System.IO.File.Delete(fullPath2);
             }
         }
+
+        public ActionResult Orders() {
+            List<OrdersForAdminVM> orderForAdmin = new List<OrdersForAdminVM>();
+            using (DB db = new DB())
+            {
+                List<OrderVM> orders = db.Orders.ToArray().Select(x => new OrderVM(x)).ToList();
+                foreach (var order in orders) {
+                    string status;
+                    Dictionary<string, int> productAndQty = new Dictionary<string, int>();
+                    decimal total = 0m;
+                    List<OrderDetailsDTO> orderDetailsList = db.OrderDetails.Where(x => x.OrderId == order.OrderId).ToList();
+                    UserDTO user = db.Users.FirstOrDefault(x => x.Id == order.UserId);
+                    string username = user.UserName;
+                    foreach(var orderDetails in orderDetailsList)
+                    {
+                        ProductDTO product = db.Products.FirstOrDefault(x => x.Id == orderDetails.ProductId);
+                        decimal price = product.Price;
+                        string productName = product.Name;
+                        productAndQty.Add(productName, orderDetails.Quantity);
+                        total += orderDetails.Quantity * price;
+                    }
+                    orderForAdmin.Add(new OrdersForAdminVM() {
+                        OrderNumber = order.OrderId,
+                        UserName = username,
+                        Total = total,
+                        ProductsAndQty = productAndQty,
+                        Cratedat = order.Cratedat,
+                        Status = order.Status
+
+                    });
+                }
+            }
+            return View(orderForAdmin);
+        }
     }
 
 }

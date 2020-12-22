@@ -1,5 +1,6 @@
 ﻿using Shopf.Models.Data;
 using Shopf.Models.ViewModels.Account;
+using Shopf.Models.ViewModels.Shop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -178,6 +179,37 @@ namespace Shopf.Controllers
                 return RedirectToAction("Logout");
             }
             
+        }
+        public ActionResult Orders() {
+            List<OrdersForUsersVM> ordersForUser = new List<OrdersForUsersVM>();
+
+            using (DB db = new DB()) {
+                UserDTO user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+                int userId = user.Id;
+                List<OrderVM> orders = db.Orders.Where(x => x.UserId == userId).ToArray().Select(x => new OrderVM(x)).ToList();
+                foreach(var order in orders)
+                {
+                    Dictionary<string, int> productsAndQty = new Dictionary<string, int>();
+                    decimal total = 0m;
+                    List<OrderDetailsDTO> orderDetailsDto = db.OrderDetails.Where(x => x.OrderId == order.OrderId).ToList();
+                    foreach (var orderDetails in orderDetailsDto)
+                    {
+                        ProductDTO product = db.Products.FirstOrDefault(x => x.Id == orderDetails.ProductId);
+                        decimal price = product.Price;
+                        string productName = product.Name;
+                        productsAndQty.Add(productName, orderDetails.Quantity);
+                        total += orderDetails.Quantity * price;
+                    }
+                    ordersForUser.Add(new OrdersForUsersVM() {
+                        OrderNumber = order.OrderId,
+                        Total = total,
+                        ProductsAndQty = productsAndQty,
+                        Cratedat = order.Cratedat,
+                        Status = order.Status
+                    });
+                }
+            }
+            return View(ordersForUser);
         }
     }
 }

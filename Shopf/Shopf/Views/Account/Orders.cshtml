@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Shopf.Models.ViewModels.Account.OrdersForUsersVM>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+@if (!Model.Any())
+{
+    <h1>No data</h1>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Order Number
+            </th>
+            <th>
+                Order details
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderNumber)
+        </td>
+        <td>
+           @foreach(var item2 in item.ProductsAndQty)
+           {
+               @item2.Key @:x @item2.Value<br />
+           }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cratedat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)$
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+    </tr>
+        }
+
+    </table>
+}

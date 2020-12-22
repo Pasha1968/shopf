@@ -109,7 +109,7 @@ $(function () {
             var url = "/cart/PlaceOrder";
 
             $(".ajaxbg").show();
-            $.post(url,
+            $.post(" ",
                 {},
                 function (data) {
                     $(".ajaxbg span").text("Thank you.");
