@@ -1141,7 +1141,10 @@
     <Content Include="Views\Cart\PaypalPartial.cshtml" />
     <Content Include="Views\Account\Orders.cshtml" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Content Include="Views\Page\ViewPage1.cshtml" />
+=======
+>>>>>>> parent of 1e6d28d... Alm Finished
 =======
 >>>>>>> parent of 1e6d28d... Alm Finished
   </ItemGroup>
