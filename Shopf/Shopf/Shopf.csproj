@@ -295,6 +295,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\christmas2_3.mp4" />
     <Content Include="Content\fancybox\blank.gif" />
     <Content Include="Content\fancybox\fancybox_buttons.png" />
     <Content Include="Content\fancybox\fancybox_loading%402x.gif" />
@@ -1139,20 +1140,8 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Cart\PaypalPartial.cshtml" />
     <Content Include="Views\Account\Orders.cshtml" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     <Content Include="Views\Page\ViewPage1.cshtml" />
-<<<<<<< HEAD
-=======
->>>>>>> parent of 1e6d28d... Alm Finished
-=======
->>>>>>> parent of 1e6d28d... Alm Finished
-=======
->>>>>>> parent of 1e6d28d... Alm Finished
-=======
     <Content Include="Views\Page\Land.cshtml" />
->>>>>>> parent of a9991c9... err
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
