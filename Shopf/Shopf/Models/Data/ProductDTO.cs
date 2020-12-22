@@ -12,6 +12,8 @@ namespace Shopf.Models.Data
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public int Amount { get; set; }
+
         public string Slug { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

@@ -57,7 +57,6 @@ namespace Shopf.Controllers
                     return RedirectToAction("Index", "Shop");
                 }
                 dto = db.Products.Where(x => x.Slug == name).FirstOrDefault();
-
                 id = dto.Id;
 
                 model = new ProductVM(dto);
