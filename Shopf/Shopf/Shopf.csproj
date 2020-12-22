@@ -1102,7 +1102,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Views\Page\Inro.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1144,12 +1143,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
     <Content Include="Views\Page\ViewPage1.cshtml" />
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 1e6d28d... Alm Finished
 =======
 >>>>>>> parent of 1e6d28d... Alm Finished
 =======
 >>>>>>> parent of 1e6d28d... Alm Finished
+=======
+    <Content Include="Views\Page\Land.cshtml" />
+>>>>>>> parent of a9991c9... err
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
