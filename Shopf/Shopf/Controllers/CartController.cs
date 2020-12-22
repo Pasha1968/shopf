@@ -67,6 +67,13 @@ namespace Shopf.Controllers
             {
                 ProductDTO product = db.Products.Find(id);
                 var productInCart = cart.FirstOrDefault(x => x.ProductId == id);
+                db.Products.Find(id).Amount--;
+                db.SaveChanges();
+                if (db.Products.Find(id).Amount < 0)
+                {
+                    TempData["SM"] = "Product left no more";
+                    return RedirectToAction("Index", "Cart");
+                }
                 if (productInCart == null)
                 {
                     cart.Add(new CartVM()
@@ -95,11 +102,18 @@ namespace Shopf.Controllers
             return PartialView("_AddToCartPartial", model);
         }
         
-        public JsonResult IncrementProduct(int productId)
+        public ActionResult IncrementProduct(int productId)
         {
             List<CartVM> cart = Session["cart"] as List<CartVM>;
             using (DB db = new DB()) {
                 CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+                db.Products.Find(productId).Amount--;
+                db.SaveChanges();
+                if (db.Products.Find(productId).Amount <= 0)
+                {
+                    TempData["SM"] = "Product left no more";
+                    return RedirectToAction("Index");
+                }
                 model.Quantity++;
                 var result = new { qty = model.Quantity, price = model.Price };
 
@@ -113,6 +127,8 @@ namespace Shopf.Controllers
             using (DB db = new DB())
             {
                 CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+                db.Products.Find(productId).Amount++;
+                db.SaveChanges();
                 if (model.Quantity > 1)
                     model.Quantity--;
                 else {
@@ -125,12 +141,20 @@ namespace Shopf.Controllers
             }
             //return View();
         }
-        public void RemoveProduct(int productId) {
+        public ActionResult RemoveProduct(int productId) {
             List<CartVM> cart = Session["cart"] as List<CartVM>;
             using (DB db = new DB())
             {
                 CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
+                db.Products.Find(productId).Amount+=model.Quantity;
+                db.SaveChanges();
+                if(db.Products.Find(productId).Amount <= 0)
+                {
+                    TempData["SM"] = "Product left no more";
+                    return RedirectToAction("Index");
+                }
                 cart.Remove(model);
+                return (null);
             }
         }
         public ActionResult PaypalPartial()

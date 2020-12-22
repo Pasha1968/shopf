@@ -7,51 +7,45 @@
 <h2>@Model.Name</h2>
 <br />
 <div class="row">
-    <div class="col-sm-12 col-md-5">
+    <div class="col-sm-3 col-md-5">
         <img src="/Images/Uploads/Products/@Model.Id/Thumbs/@Model.ImageName" />
 
     </div>
-    <div class="col-sm-12 col-md-7">
+    <div class="col-sm-6 col-md-7">
+        <h2>Description</h2>
         @Html.DisplayFor(model => model.Description)
         <br />
-        @Html.DisplayFor(model => model.Price)$
 
     </div>
     @if (Request.IsAuthenticated)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<div class="addtocart" style="float:right">
-    <div>
-        <div>
-            @Html.DisplayFor(model => model.Price)$
+        <div class="addtocart" style="float:right">
+            <div>
+                <div>
+                    @Html.DisplayFor(model => model.Price)$
+                </div>
+                @if (Model.Amount <= 0)
+                {
+                    <div>Soon</div>
+                }
+                else {
+                    <div>@Html.DisplayFor(model => model.Amount)Left</div>
+                }
+                
+                <a href="#" class="addtocart btn btn-success">
+                    Add to cart
+                </a>
+            </div>
+            <span class="loader">
+                <img src="~/Content/img/ajax-loader.gif" height="100" width="150" />
+            </span>
+            <div class="ajaxmsg">
+                Added to card
+            </div>
         </div>
-=======
-    <div class="addtocart">
->>>>>>> parent of 1e6d28d... Alm Finished
-=======
-    <div class="addtocart">
->>>>>>> parent of 1e6d28d... Alm Finished
-=======
-    <div class="addtocart">
->>>>>>> parent of 1e6d28d... Alm Finished
-=======
-    <div class="addtocart">
->>>>>>> parent of 1e6d28d... Alm Finished
-        <a href="#" class="addtocart btn btn-success">
-            Add to cart
-        </a>
-        <span class="loader">
-            <img src="~/Content/img/ajax-loader.gif" height="100" width="150" />
-        </span>
-        <div class="ajaxmsg">
-            Added to card
-        </div>
-    </div>
     }
-    else {
+    else
+    {
         <div>Plese Log in</div>
     }
 </div>
@@ -62,7 +56,7 @@
         <div class="row">
             @foreach (var item in Model.GalleryImages)
             {
-                <div class="col-md-12">
+                <div class="col-md-3">
                     <a class="fancybox" rel="gallery1" href="/Images/Uploads/Products/@Model.Id/Gallery/@item">
                         <img src="/Images/Uploads/Products/@Model.Id/Gallery/Thumbs/@item" />
                     </a>
@@ -82,18 +76,14 @@
 $(function () {
     $("a.addtocart").click(function (e) {
         e.preventDefault();
-
         $("span.loader").addClass("ib");
-
         var url = "/cart/AddToCartPartial";
-
         $.get(url, { id: @Model.Id
     }, function myfunction(data) {
         $(".ajaxcart").html(data);
         }).done(function () {
             $("span.loader").removeClass("ib");
             $("div.ajaxmsg").addClass("ib");
-
             setTimeout(function () {
                 $("div.ajaxmsg").fadeOut("fast");
                 $("div.ajaxmsg").removeClass("ib");

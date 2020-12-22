@@ -21,6 +21,7 @@ namespace Shopf.Models.ViewModels.Shop
             Slug = row.Slug;
             Description = row.Description;
             Price = row.Price;
+            Amount = row.Amount;
             CategoryName = row.CategoryName;
             CategoryId = row.CategoryId;
             ImageName = row.ImageName;
@@ -32,6 +33,7 @@ namespace Shopf.Models.ViewModels.Shop
         public string Slug { get; set; }
         [Required]
         public string Description { get; set; }
+        public int Amount { get; set; }
         public decimal Price { get; set; }
         public string CategoryName { get; set; }
         [Required]
