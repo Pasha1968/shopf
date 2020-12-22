@@ -1,14 +1,112 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .xmas {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            background: url("https://wp-lessons.com/wp-content/uploads/2014/12/xmas-large.jpg") no-repeat 0 0/cover;
+        }
+
+            .xmas .xmas-message {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 2;
+                -ms-transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                width: calc(90% - 6rem);
+                height: calc(100% - 12rem);
+                margin: 0 auto;
+                background: url(https://wp-lessons.com/wp-content/uploads/2014/12/merryxmas.png) no-repeat 50% 50% / contain;
+            }
+
+            .xmas .from {
+                position: absolute;
+                bottom: 40px;
+                width: 100%;
+                z-index: 3;
+                text-align: center;
+            }
+
+                .xmas .from div {
+                    font-family: "quimby-mayoral", sans-serif;
+                    color: #ffffff;
+                    font-size: 40px;
+                    margin-bottom: 10px;
+                }
+
+                .xmas .from .gc-link {
+                    display: inline-block;
+                    font-family: "brandon-grotesque", sans-serif;
+                    font-size: 24px;
+                    color: #ffffff;
+                    -webkit-transition: 400ms ease;
+                    transition: 400ms ease;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                }
+
+                    .xmas .from .gc-link:hover {
+                        color: #1cff94;
+                    }
+
+            .xmas #xmas {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                z-index: 2;
+            }
+    </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
+    <style>
+        #video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            opacity: 0.4;
+            z-index: -100;
+        }
+
+            #video-bg > video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-width: 100%;
+                min-height: 100%;
+                width: auto;
+                height: auto;
+            }
+
+        .button-wrapper {
+            width: 100%;
+            height: 100%;
+            padding: 50px;
+            box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            position: relative;
+        }
+
+        #my-button {
+            position: absolute;
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
 </head>
 <body>
+    <div id="video-bg">
+        <video autoplay muted loop>
+            <source src="~/Content/christmas2_3.mp4" type="video/mp4"></source>
+        </video>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -26,81 +124,86 @@
 
                     @if (Request.IsAuthenticated)
                     {
-                        <li>
-                            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "navbar-text", style = "text-decoration:none" })
+                        <li style="top:-1.55vh">
+                            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "navbar-text", style = "text-decoration:none;height:20px;top:-5px;" })
                         </li>
                     }
                     else
                     {
-                        if (ViewBag.Title == "Login")
-                        {
-                            <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "active", style = "text-decoration:none" })</li>
-                        }
-                        else
-                        {
-                            <li class="navbar-text">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "navbar-text", style = "text-decoration:none" })</li>
-                        }
+                        <li class="" style="top:-1.55vh">@Html.ActionLink("Login", "Login", "Account", null, new { @class = "navbar-text", style = "text-decoration:none;height:20px;top:-5px;" })</li>
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("User"))
                     {
                         if (ViewBag.Title == "User Profile")
                         {
-                            <li class="active">@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                            <li class="active" style="top:-1.55vh">@Html.Action("UserNavPartial", "Account", new { area = "", @class = "", style = "text-decoration:none;height:20px;top:-5px;" })</li>
                         }
                         else
                         {
-                            <li>@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                            <li class="active" style="top:-1.55vh">@Html.Action("UserNavPartial", "Account", new { area = "", @class = "", style = "text-decoration:none;height:20px;top:-5px;" })</li>
                         }
-                        <li>@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+
                     }
                 </ul>
                 <!-- change cart to link to admin dashboard-->
                 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                 {
-                    <span class="navbar-text" style="float:right">
+                    <span class="" style="float:right;top:-1.5vh;">
+                        @Html.ActionLink("God(adm) Area", "Index", "Dashboard", new { area = "Admin" }, null)
+                    </span>
+                }
+                else if (Request.IsAuthenticated && User.IsInRole("Manager"))
+                {
+                    <span class="" style="float:right;top:-1.5vh;">
                         @Html.ActionLink("God(adm) Area", "Index", "Dashboard", new { area = "Admin" }, null)
                     </span>
                 }
                 else
                 {
-                    if (ViewBag.Title != "Cart Details")
-                    {
-                        <span class="navbar-text" style="float:right">
-                            @Html.Action("CartPartial", "Cart")
-                        </span>
-                    }
+                if (ViewBag.Title != "Cart Details")
+                {
+                <span class="" style="float:right;top:-1vh;margin-top:1.2vh">
+                    @Html.Action("CartPartial", "Cart")
+                </span>
                 }
+                else
+                {
+                <span class="" style="float:right;top:-1vh;margin-top:1.2vh">
+                    @Html.Action("CartPartial", "Cart")
+                </span>
+            }
+        }
 
             </div>
         </div>
     </div>
     <div class="container body-content" style="margin-top:5%">
         <div class="row" style="display:inline-block;width:100%;">
-            <div class="col-md-3 list-group">
-                @Html.Action("CategoryMenuPartial","Shop")
-            </div>
+
             @if (ViewBag.Sidebar == "Yes")
             {
-            <div style="margin:5%;display:flex;width:100%;justify-content: space-between;">
-                <div>
-                    @RenderBody()
+                <div style="margin:5%;display:flex;width:100%;justify-content: space-between;">
+                    <div>
+                        @RenderBody()
+                    </div>
+                    <div style="margin-left:5%;">
+                        @Html.Action("SidebarPartial", "Page")
+                    </div>
                 </div>
-                <div style="margin-left:5%;">
-                    @Html.Action("SidebarPartial", "Page")
-                </div>
-            </div>
             }
             else
             {
-                <div class="col">
+                <div class="col-md-3 col-sm-2 list-group">
+                    @Html.Action("CategoryMenuPartial", "Shop")
+                </div>
+                <div class="col-md-7 col-sm-5">
                     @RenderBody()
                 </div>
             }
-            <hr />
-            <footer>
-                <p>Смерть вижуалке, смерть её создателям</p>
-            </footer>
         </div>
+        <footer>
+            <p>Смерть Майкрософт, смерть Винде</p>
+        </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
@@ -109,5 +212,13 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
+    </video>
 </body>
 </html>
+@section Scripts{
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script>
+       
+    </script>
+}

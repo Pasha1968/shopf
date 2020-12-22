@@ -1,7 +1,5 @@
 ﻿@model Shopf.Models.ViewModels.Cart.CartVM
 
 <div class="ajaxcart">
-    Your Cart:@Model.Quantity item(s) - @Model.Price $
-    <br />
-    @Html.ActionLink("Checkout","Index")
+    @Html.ActionLink($"Your Cart:{@Model.Quantity} item(s) - {@Model.Price} $","Index",null, new {@class= "list-group-item list-group-item-action list-group-item-dark", style = "text-decoration:none;height:auto" })
 </div>
