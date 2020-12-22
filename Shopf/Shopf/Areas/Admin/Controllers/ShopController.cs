@@ -13,6 +13,7 @@ namespace Shopf.Areas.Admin.Controllers
 {
     public class ShopController : Controller
     {
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult Categories() {
             List<CategoryVM> categoryVMList;
             using (DB db = new DB()) {

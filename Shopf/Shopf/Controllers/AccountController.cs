@@ -97,11 +97,13 @@ namespace Shopf.Controllers
             }
         }
         [HttpGet]
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+        [Authorize]
         public ActionResult UserNavPartial()
         {
             string userName = User.Identity.Name;
@@ -118,6 +120,7 @@ namespace Shopf.Controllers
         }
         [HttpGet]
         [ActionName("user-profile")]
+        [Authorize]
         public ActionResult UserProfile()
         {
             string userName = User.Identity.Name;
@@ -130,6 +133,7 @@ namespace Shopf.Controllers
             return View("UserProfile",model);
         }
         [HttpPost]
+        [Authorize]
         [ActionName("user-profile")]
         public ActionResult UserProfile(UserProfileVM model)
         {
@@ -180,6 +184,7 @@ namespace Shopf.Controllers
             }
             
         }
+        [Authorize(Roles="User")]
         public ActionResult Orders() {
             List<OrdersForUsersVM> ordersForUser = new List<OrdersForUsersVM>();
 
