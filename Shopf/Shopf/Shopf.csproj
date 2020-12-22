@@ -1139,6 +1139,11 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Cart\PaypalPartial.cshtml" />
     <Content Include="Views\Account\Orders.cshtml" />
+<<<<<<< HEAD
+=======
+    <Content Include="Views\Page\ViewPage1.cshtml" />
+    <Content Include="Views\Page\Land.cshtml" />
+>>>>>>> parent of a9991c9... err
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
