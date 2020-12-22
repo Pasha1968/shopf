@@ -3,6 +3,8 @@ using Shopf.Models.ViewModels.Cart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -130,6 +132,56 @@ namespace Shopf.Controllers
                 CartVM model = cart.FirstOrDefault(x => x.ProductId == productId);
                 cart.Remove(model);
             }
+        }
+        public ActionResult PaypalPartial()
+        {
+            List<CartVM> cart = Session["cart"] as List<CartVM>;
+            return PartialView(cart);
+        }
+
+            [HttpPost]
+        public ActionResult PlaceOrder()
+        {
+            //List<CartVM> cart = Session["cart"] as List<CartVM>;
+            //string userName = User.Identity.Name;
+            //int orderId = 0;
+            //string userMail = "";
+            //string status = "Принят в обработку";
+            ////using (DB db = new DB())
+            ////{
+            ////    OrderDTO orderDto = new OrderDTO();
+            ////    var q = db.Users.FirstOrDefault(x => x.UserName == userName);
+            ////    int userId = q.Id;
+            ////    userMail = q.EmailAdress;
+
+            ////    orderDto.UserId = userId;
+            ////    orderDto.Createdat = DateTime.Now;
+            ////    orderDto.Status = status;
+            ////    db.Orders.Add(orderDto);
+            ////    db.SaveChanges();//Асинхронно можно поймать эррор, так что ну его в баню
+
+            ////    orderId = orderDto.OrderId;
+            ////    OrderDetailsDTO orderDetailsDto = new OrderDetailsDTO();
+            ////    foreach (var item in cart)
+            ////    {
+            ////        orderDetailsDto.OrderId = orderId;
+            ////        orderDetailsDto.UserId = userId;
+            ////        orderDetailsDto.ProductId = item.ProductId;
+            ////        orderDetailsDto.Quantity = item.Quantity;
+            ////        db.OrderDetails.Add(orderDetailsDto);
+            ////        db.SaveChanges();
+            ////    }
+
+            ////}
+            //var client = new SmtpClient("smtp.mailtrap.io", 2525)
+            //{
+            //    //Почта (Письмо заказа)
+            //    Credentials = new NetworkCredential("a766ee98be9a76", "d0200c0f7aafd1"),
+            //    EnableSsl = true
+            //};
+            //client.Send("shop@example.com", "", $"New Order№{2}", $"You have created a new order№{2}");
+            ////Session["cart"] = null;//ООбновить сессию
+            return RedirectToAction("Index", "Page");
         }
 
     }

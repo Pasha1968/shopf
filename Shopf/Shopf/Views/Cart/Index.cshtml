@@ -78,25 +78,53 @@ else
 
     </table>
     <!--Вот тут платежный шлюз(система)-->
-    <form class="paypalform" action="" method="post">
-        <input type="hidden" name="cmd" value="_cart">
-        <input type="hidden" name="upload" value="1" />
-        <input type="hidden" name="business" value="account@paypal.com">
+    <div class="paypaldiv">
+        <form class="paypalform" action="" method="post">
+            <input type="hidden" name="cmd" value="_cart">
+            <input type="hidden" name="upload" value="1" />
+            <input type="hidden" name="business" value="account@paypal.com">
 
-        @foreach (var item in Model)
-        {
-            <input type="hidden" name="item_name_@count" value="@item.ProductName">
-            <input type="hidden" name="amount_@count" value="@item.Price">
-            <input type="hidden" name="quantity_@count" value="@item.Quantity">
-            count++;
-        }
+            @foreach (var item in Model)
+            {
+                <input type="hidden" name="item_name_@count" value="@item.ProductName">
+                <input type="hidden" name="amount_@count" value="@item.Price">
+                <input type="hidden" name="quantity_@count" value="@item.Quantity">
+                count++;
+            }
+            <input type="hidden" name="currency_code" value="USD">
+            <div style="display:none">
+                <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+            </div>
+        </form>
+    </div>
+    <a href="#" class="placeorder btn btn-primary float-right" style="float: right;margin-right: 17.5%;margin-top:-2.5%; width:10%;">Buy</a>
 
-        <input type="hidden" name="currency_code" value="USD">
-        <!--<input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">-->
-    </form>
     <br />
-    <a href="#" class="btn btn-primary float-right">Buy</a>
 }
 @section Scripts{
     <script src="~/Content/ShopJS/IncrementProductScript.js"></script>
+    @*<script>
+                $(function () {
+                    $(function () {
+
+                        $("a.placeorder").click(function (e) {
+                            console.log("click");
+                            e.preventDefault();
+
+                            var $this = $(this);
+                            var url = "/Cart/PlaceOrder";
+
+                            $(".ajaxbg").show();
+
+                            $.post(url,
+                                {},
+                                function (data) {
+                                    setTimeout(function () {
+                                        $('form input[name = "submit"]').click();
+                                    }, 2000);
+                                });
+                        });
+                    });
+                });
+        </script>*@
 }

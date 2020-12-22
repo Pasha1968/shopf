@@ -11,7 +11,7 @@ namespace Shopf.Models.Data
     public class OrderDTO
     {
         [Key]
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public int UserId { get; set; }
         public DateTime Createdat { get; set; }
         public string Status { get; set; }

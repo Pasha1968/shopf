@@ -17,6 +17,8 @@
         @Html.DisplayFor(model => model.Price)$
 
     </div>
+    @if (Request.IsAuthenticated)
+    {
     <div class="addtocart">
         <a href="#" class="addtocart btn btn-success">
             Add to cart
@@ -28,6 +30,10 @@
             Added to card
         </div>
     </div>
+    }
+    else {
+        <div>Plese Log in</div>
+    }
 </div>
 <div class="row">
     <h3>Gallery</h3>
