@@ -41,11 +41,6 @@ namespace Shopf.Controllers
 
             return View(model);
         }
-        public ActionResult Land(string page = "")
-        {
-            
-            return View(model);
-        }
         public ActionResult PagesMenuPartial() {
             List<PageVM> pageVMList;
             using (DB db = new DB()) {
