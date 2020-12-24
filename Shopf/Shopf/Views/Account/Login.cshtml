@@ -12,11 +12,11 @@
     </div>
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+
+    <div class="form-horizontal body_hide">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -52,4 +52,13 @@
             </div>
         </div>
     </div>
+}
+@section Scripts{
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script>
+        setTimeout(function () {
+            $('div.body_hide').addClass('body_visible');
+        }, 500);
+    </script>
 }

@@ -613,6 +613,7 @@
     <Content Include="Areas\Admin\Views\Pages\EditPage.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\PageDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\EditSidebar.cshtml" />
+    <Content Include="intro.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />

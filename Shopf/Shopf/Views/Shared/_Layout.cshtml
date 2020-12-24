@@ -1,7 +1,62 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script type='text/javascript'>
+        window.onload = function () {
+            var image = document.getElementById("test");
+            var i = 0, s = ["block", "none"], t = [2000, 5000]; //2 сек есть картинка, 5 сек нет
+            function show()
+            {
+                i ^= 1
+                image.style.display = s[i];
+                setTimeout(show, t[i]);
+            }
+            show()
+        }
+    </script>
+        <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script>
+            setTimeout(function () {
+            $('div.body_hide').addClass('body_visible');
+            }, 500);
+            setTimeout(function () {
+                $('div.disc_hide').addClass('body_visible');
+            }, 1500);
+    </script>
+    <script
+            addEventListener('mousemove', e => 
+            document.body.style.setProperty('--xy', e.x + 'px ' + e.y + 'px'))
+    </script>
     <style>
+        body {
+            overflow: hidden;
+            height: 100vh;
+            --xy: -150px -150px;
+            background: radial-gradient(circle at var(--xy), #0000, #000f 30vh), url(https://picsum.photos/id/34/1000/1000);
+        }
+        .body_hide {
+            opacity: 0;
+            transition: .9s opacity ease-in-out;
+        }
+
+        .body_visible {
+            opacity: 1;
+        }
+        .scale {
+            transition: 2s; /* Время эффекта */
+        }
+
+            .scale:hover {
+                transform: scale(1.2); /* Увеличиваем масштаб */
+            }
+        .scale_t {
+            transition: 2s; /* Время эффекта */
+        }
+
+            .scale_t:hover {
+                transform: scale(1.2); /* Увеличиваем масштаб */
+            }
         .xmas {
             height: 100%;
             width: 100%;
@@ -95,13 +150,22 @@
         #my-button {
             position: absolute;
         }
+
+        .body_hide {
+            opacity: 0;
+            transition: .9s opacity ease-in-out;
+        }
+
+        .body_visible {
+            opacity: 1;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
 </head>
-<body>
+<body class="">
     <div id="video-bg">
         <video autoplay muted loop>
             <source src="~/Content/christmas2_3.mp4" type="video/mp4"></source>
@@ -193,16 +257,20 @@
             }
             else
             {
-                <div class="col-md-3 col-sm-2 list-group">
+                <div class="col-md-3 col-sm-2 list-group body_hide scale">
                     @Html.Action("CategoryMenuPartial", "Shop")
                 </div>
-                <div class="col-md-7 col-sm-5">
+                <div class="col-md-7 col-sm-5 body_hide">
                     @RenderBody()
                 </div>
             }
         </div>
         <footer>
+            <div>
+                <img id="test" src="~/Content/we.jpg" />
+            </div>
             <p>Смерть Майкрософт, смерть Винде</p>
+
         </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")
@@ -212,13 +280,8 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("scripts", required: false)
-    </video>
 </body>
 </html>
 @section Scripts{
-    <script src="~/Scripts/jquery-3.5.1.js"></script>
-    <script src="~/Scripts/jquery-ui.js"></script>
-    <script>
-
-    </script>
+       
 }
